@@ -4,7 +4,7 @@ import numpy as np
 from collections import deque
 import random
 from .NeuralNetworkForQValues import NeuralNetworkForQValues
-from ..BaseAgent import BaseAgent
+from Agents.BaseAgent import BaseAgent
 import os, yaml
 
 
