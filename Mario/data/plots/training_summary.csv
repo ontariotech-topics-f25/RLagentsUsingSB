@@ -1,0 +1,5 @@
+log_name,final_reward,avg_last_10,final_epsilon
+coin_greedy_dqn_20251021_070756_metrics,1045.0,588.73,
+coin_greedy_ppo_20251021_052203_metrics,622.0,605.9399999999999,
+speedrunner_dqn_20251021_061306_metrics,673.6153,702.4309110000002,
+speedrunner_ppo_20251021_043008_metrics,701.38525,929.736193,
