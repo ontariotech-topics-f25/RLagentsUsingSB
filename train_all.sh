@@ -1,7 +1,6 @@
 #!/bin/bash
-# === Automated overnight training script for PPO & DQN on Mario ===
-# Total runtime target: ~4.5 hours
-# Each run gets ~1h07m (100k timesteps)
+# Automated overnight training script for PPO & DQN on Mario
+# Runs two personas per algorithm in parallel
 
 source venv/bin/activate
 
@@ -12,24 +11,28 @@ declare -a ALGOS=("ppo" "dqn")
 declare -a PERSONAS=("speedrunner" "coin_greedy")
 
 for algo in "${ALGOS[@]}"; do
+  echo "========================================"
+  echo "Starting parallel runs for: $algo"
+  echo "========================================"
+
   for persona in "${PERSONAS[@]}"; do
     CONFIG_PATH="Mario/configs/${algo}_config.yaml"
     TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-    echo "========================================"
-    echo "🚀 Starting training: $algo — $persona ($TIMESTAMP)"
-    echo "========================================"
+    echo "Launching training: $algo — $persona ($TIMESTAMP)"
 
     python Mario/src/train.py \
       --algo "$algo" \
       --persona "$persona" \
       --config "$(basename $CONFIG_PATH)" \
-      --run_label "$persona"_"$algo"_"$TIMESTAMP" \
-      > "$LOG_DIR/${persona}_${algo}_${TIMESTAMP}.out" 2>&1
-
-    echo "✅ Completed: $algo — $persona ($TIMESTAMP)"
-    echo "----------------------------------------"
-    echo
+      --run_label "${persona}_${algo}_${TIMESTAMP}" \
+      --load_model \
+      > "$LOG_DIR/${persona}_${algo}_${TIMESTAMP}.out" 2>&1 &
   done
+
+  # Wait for both personas of this algo to finish before next algo
+  wait
+  echo "Completed all runs for: $algo"
+  echo "----------------------------------------"
 done
 
-echo "🎯 All training runs completed!"
+echo "All training runs completed!"

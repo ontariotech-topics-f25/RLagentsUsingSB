@@ -43,7 +43,7 @@ class SequentialMarioEnv(Wrapper):
 
     def _load_env(self):
         env_id = self.levels[self.current_level_index]
-        print(f"\n▶ Loading level: {env_id}")
+        print(f"\n Loading level: {env_id}")
         try:
             pygame.display.quit()
         except Exception:

@@ -1,0 +1,13 @@
+nohup: ignoring input
+========================================
+Starting parallel runs for: ppo
+========================================
+Launching training: ppo — speedrunner (20251023_110453)
+Launching training: ppo — coin_greedy (20251023_110453)
+Completed all runs for: ppo
+----------------------------------------
+========================================
+Starting parallel runs for: dqn
+========================================
+Launching training: dqn — speedrunner (20251023_152855)
+Launching training: dqn — coin_greedy (20251023_152855)
