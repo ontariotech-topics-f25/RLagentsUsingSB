@@ -19,4 +19,5 @@ total_timesteps: 4000000
 save_path: ./models/BreakPoint
 use_cuda: true
 run_label: DQN
+seed: 42
 
