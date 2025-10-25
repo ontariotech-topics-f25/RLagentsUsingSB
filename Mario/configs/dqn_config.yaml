@@ -9,5 +9,5 @@ render_mode: None
 action_set: "SIMPLE_MOVEMENT"
 
 learning_rate: 0.0001
-total_timesteps: 2000000  
+total_timesteps: 1000000  
 seed: 67

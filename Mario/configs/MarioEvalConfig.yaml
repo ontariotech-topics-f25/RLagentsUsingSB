@@ -1,0 +1,39 @@
+# ==== Mario Evaluation Config ====
+
+# General
+app: SuperMario
+render_mode: human     # "rgb_array" for headless, "human" for visual
+action_set: SIMPLE_MOVEMENT
+resize: 84
+number_of_stacked_frames: 4
+num_skip: 4
+
+
+seed: 0
+
+# Persona control can be overriden from command line
+persona: speedrunner
+
+# Levels (you can adjust range if you want)
+start_world: 1
+end_world: 1
+num_levels: 1
+
+# Model and device
+device: "cpu"  # or "cuda" if you have GPU and dependencies installed
+load_model: true
+run_label: eval
+
+# Disable training-only settings
+max_episodes: 1
+learning_rate: 0.0001
+gamma: 0.99
+epsilon_start: 0.0
+epsilon_end: 0.0
+epsilon_decay: 1.0
+replay_buffer_size: 1
+batch_size: 1
+episodes: 1
+
+# Logging (optional, safe to ignore if wrappers expect it)
+log_dir: data/logs

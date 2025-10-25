@@ -57,7 +57,7 @@ def prepare_model_directory(app, persona, algo, run_seed, config):
     
     # Generate filename with persona, algo, and seed
     label = config.get("run_label") or datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"{persona}_{algo}_seed{run_seed}_{label}.pth"
+    filename = f"{persona}_{algo}_seed{run_seed}_{label}.zip"
     
     # Final model path
     path_to_save = os.path.join(model_dir, filename)
