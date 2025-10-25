@@ -37,7 +37,7 @@ def test_model(model_type="DQN", render_mode="human", persona="TestRun"):
     env = DummyVecEnv([env_fn])
 
     # --- Load the latest model for the chosen algorithm ---
-    model_dir = "model"
+    model_dir = "Breakout/model"
     model_path = os.path.join(model_dir, f"{model_type}_agent_final.zip")
     if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model not found at {os.path.abspath(model_path)}")

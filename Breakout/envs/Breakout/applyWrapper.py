@@ -4,9 +4,10 @@ import datetime
 import numpy as np
 import gymnasium as gym
 from gymnasium import Wrapper
-from gymnasium.wrappers import FrameStack, GrayScaleObservation, ResizeObservation
-import pygame
+from gymnasium.wrappers import GrayScaleObservation, ResizeObservation, FrameStack
 
+
+import pygame
 
 class FrameSkipping(Wrapper):
     """Custom frame skipping wrapper."""

@@ -1,7 +1,9 @@
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 from envs.Breakout.agent import RLAgent
-
 # Path to your config file
-config_path = "configs/breakout_config.yaml"
+config_path = "../../configs/BreakPoint/BreakPoint.yaml"
 
 # Initialize the agent
 agent = RLAgent(config_path)

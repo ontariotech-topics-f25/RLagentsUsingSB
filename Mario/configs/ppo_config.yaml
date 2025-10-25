@@ -5,10 +5,24 @@ levels:
 
 resize: 84
 num_stack: 4
-num_skip: 4
+num_skip: 2
 render_mode: None
-action_set: "SIMPLE_MOVEMENT"
+action_set: "RIGHT_ONLY"
 
-learning_rate: 0.00025
-total_timesteps: 2000000   
+# === PPO Hyperparameters ===
+learning_rate: 2.4e-5        
+n_steps: 2048                  
+batch_size: 128               
+n_epochs: 10                   
+gamma: 0.999                  
+gae_lambda: 0.95              
+clip_range: 0.1               
+ent_coef: 0.02                
+vf_coef: 0.7                  
+max_grad_norm: 0.5           
+normalize_advantage: True     
+
+# === Training Setup ===
+total_timesteps: 4000000
 seed: 67
+save_interval: 500000      # Save every 1M timesteps (as you added)

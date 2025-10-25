@@ -49,7 +49,7 @@ def make_mario_env(
     num_stack=4,
     num_skip=4,
     render_mode=None,
-    action_set="SIMPLE_MOVEMENT",
+    action_set="RIGHT_ONLY",
     config=None,
 ):
     """
@@ -58,7 +58,7 @@ def make_mario_env(
     """
 
     # --- Base environment ---
-    if levels is None:
+    if levels is None or levels == "SuperMarioBros-1-1-v0":
         # Single-level mode
         base_env = gym_super_mario_bros.make("SuperMarioBros-1-1-v0")
         base_env = JoypadSpace(base_env, getattr(mario_actions, action_set))

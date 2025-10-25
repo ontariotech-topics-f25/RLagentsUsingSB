@@ -3,7 +3,7 @@ import sys
 import argparse
 import torch
 import numpy as np
-from tqdm import tqdm
+from stable_baselines3.common.callbacks import CheckpointCallback, CallbackList
 
 # This file is located at <root>/Mario/src/train.py
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
@@ -80,7 +80,7 @@ if __name__ == "__main__":
     parser.add_argument("--persona", type=str, default="speedrunner")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--load_model", action="store_true", help="Load pre-trained model if available")
-    parser.add_argument("--config", type=str, default="SuperMarioConfig.yaml", help="Config file path under configs/")
+    parser.add_argument("--config", type=str, default="dqn_config.yaml", help="Config file path under configs/")
     parser.add_argument("--run_label", type=str, default=None, help="Unique label for this training run")
     args = parser.parse_args()
 
@@ -103,7 +103,7 @@ if __name__ == "__main__":
         num_stack=config.get("num_stack", 4),
         num_skip=config.get("num_skip", 4),
         render_mode=config.get("render_mode", None),
-        action_set=config.get("action_set", "SIMPLE_MOVEMENT"),
+        action_set=config.get("action_set", "RIGHT_ONLY"),
         config=config
     )
 
@@ -128,42 +128,125 @@ if __name__ == "__main__":
 
     elif algo == "ppo":
         print("Using PPO (Stable Baselines 3)")
-        model = PPO("CnnPolicy", env, verbose=1, seed=run_seed, learning_rate=config.get("learning_rate", 2.5e-4))
+
+        # Extract PPO-specific parameters from config, with sensible defaults
+        ppo_params = {
+            "learning_rate": config.get("learning_rate", 2.5e-5),
+            "n_steps": config.get("n_steps", 512),
+            "batch_size": config.get("batch_size", 128),
+            "n_epochs": config.get("n_epochs", 4),
+            "gamma": config.get("gamma", 0.99),
+            "gae_lambda": config.get("gae_lambda", 0.95),
+            "clip_range": config.get("clip_range", 0.1),
+            "ent_coef": config.get("ent_coef", 0.01),
+            "vf_coef": config.get("vf_coef", 0.5),
+            "max_grad_norm": config.get("max_grad_norm", 0.5),
+            "normalize_advantage": config.get("normalize_advantage", True),
+        }
+
+        # Initialize PPO model
+        model = PPO(
+            "CnnPolicy",
+            env,
+            verbose=1,
+            seed=run_seed,
+            **ppo_params
+        )
+
+        # Load existing model if available
         if args.load_model:
             latest_model = find_latest_model(os.path.dirname(config["path_to_save_model"]), args.persona, args.algo)
             if latest_model:
+                print(f"Resuming from latest checkpoint: {latest_model}")
                 model = PPO.load(latest_model, env=env)
             elif os.path.exists(config["path_to_save_model"]):
+                print(f"Loading saved model from: {config['path_to_save_model']}")
                 model = PPO.load(config["path_to_save_model"], env=env)
 
+        # ===  Auto-save checkpoints every 100,000 steps ===
+        checkpoint_dir = os.path.join(os.path.dirname(config["path_to_save_model"]), "checkpoints")
+        os.makedirs(checkpoint_dir, exist_ok=True)
+
+        checkpoint_callback = CheckpointCallback(
+            save_freq=config.get("save_interval", 1_000_000),
+            save_path=checkpoint_dir,
+            name_prefix=f"{args.persona}_{args.algo}_checkpoint",
+            save_replay_buffer=False,
+            save_vecnormalize=False,
+        )
+
+        # Combine with metrics logging callback
         callback = MetricsLoggingCallback(metrics_logger)
-        model.learn(total_timesteps=config.get("total_timesteps", 100_000), callback=callback)
+        callback_list = CallbackList([callback, checkpoint_callback])
+
+        # Train model
+        total_timesteps = config.get("total_timesteps", 3_000_000)
+        print(f"Starting PPO training for {total_timesteps:,} timesteps...")
+        model.learn(total_timesteps=total_timesteps, callback=callback_list)
+
+        # Final save
         model.save(config["path_to_save_model"])
         print("Training complete. Model saved successfully.")
 
     elif algo == "dqn":
         print("Using DQN (Stable Baselines 3)")
-        model = DQN(
-            "CnnPolicy",
-            env,
-            verbose=1,
-            seed=run_seed,
-            learning_rate=config.get("learning_rate", 1e-4),
-            buffer_size=config.get("buffer_size", 50_000),
-            batch_size=config.get("batch_size", 32),
-        )
 
+        # ===  DQN hyperparameters (can come from YAML) ===
+        dqn_params = {
+            "learning_rate": config.get("learning_rate", 1e-4),
+            "buffer_size": config.get("buffer_size", 50_000),
+            "batch_size": config.get("batch_size", 64),
+            "learning_starts": config.get("learning_starts", 50_000),
+            "target_update_interval": config.get("target_update_interval", 10_000),
+            "train_freq": config.get("train_freq", 4),
+            "gradient_steps": config.get("gradient_steps", 1),
+            "exploration_fraction": config.get("exploration_fraction", 0.1),
+            "exploration_final_eps": config.get("exploration_final_eps", 0.01),
+            "gamma": config.get("gamma", 0.99),
+            "tau": config.get("tau", 1.0),
+            "target_update_interval": config.get("target_update_interval", 10_000),
+            "policy_kwargs": config.get("policy_kwargs", dict(net_arch=[256, 256])),
+            "optimize_memory_usage": config.get("optimize_memory_usage", False),
+            "train_freq": config.get("train_freq", 4),
+            "device": config.get("device", "auto"),
+            "verbose": 1,
+            "seed": run_seed,
+        }
+
+        # ===  Initialize DQN model ===
+        model = DQN("CnnPolicy", env, **dqn_params)
+
+        # ===  Load existing model if available ===
         if args.load_model:
             latest_model = find_latest_model(os.path.dirname(config["path_to_save_model"]), args.persona, args.algo)
             if latest_model:
+                print(f"Resuming from latest checkpoint: {latest_model}")
                 model = DQN.load(latest_model, env=env)
             elif os.path.exists(config["path_to_save_model"]):
+                print(f"Loading saved model from: {config['path_to_save_model']}")
                 model = DQN.load(config["path_to_save_model"], env=env)
 
+        # === Auto-save checkpoints every 1M steps ===
+        checkpoint_dir = os.path.join(os.path.dirname(config["path_to_save_model"]), "checkpoints")
+        os.makedirs(checkpoint_dir, exist_ok=True)
+
+        checkpoint_callback = CheckpointCallback(
+            save_freq=config.get("save_interval", 500_000),
+            save_path=checkpoint_dir,
+            name_prefix=f"{args.persona}_{args.algo}_checkpoint",
+            save_replay_buffer=True,      #  Recommended for DQN
+            save_vecnormalize=False,
+        )
+
+        # ===  Combine metrics logging + checkpointing ===
         callback = MetricsLoggingCallback(metrics_logger)
-        model.learn(total_timesteps=config.get("total_timesteps", 100_000), callback=callback)
+        callback_list = CallbackList([callback, checkpoint_callback])
+
+        # === Train model ===
+        total_timesteps = config.get("total_timesteps", 3_000_000)
+        print(f"Starting DQN training for {total_timesteps:,} timesteps...")
+        model.learn(total_timesteps=total_timesteps, callback=callback_list)
+
+        # ===  Final save ===
         model.save(config["path_to_save_model"])
         print("Training complete. Model saved successfully.")
-
-    else:
-        raise ValueError(f"Unsupported algorithm: {args.algo}")

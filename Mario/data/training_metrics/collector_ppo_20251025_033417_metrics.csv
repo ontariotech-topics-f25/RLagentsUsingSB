@@ -1,0 +1,3 @@
+episode,total_reward,avg_reward,loss,epsilon,timesteps
+1,-175.02599,-0.18175076398522683,,,963
+2,67.242294,0.2068993671123798,,,325
