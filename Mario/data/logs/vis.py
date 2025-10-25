@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load CSV
-csv_path = "/home/amandeepsingh/Sem7/Projects/TopicsOfCS1/Assignment1/TestAssignment1/RLagentsUsingSB/Mario/data/logs/collector_ppo_20251025_005553_797238_log.csv"
+csv_path = "/home/amandeepsingh/Sem7/Projects/TopicsOfCS1/Assignment1/TestAssignment1/RLagentsUsingSB/Mario/data/logs/speedrunner_dqn_20251025_040700_661460_log.csv"
 df = pd.read_csv(csv_path)
 
 # Make sure there's a frame_number column
