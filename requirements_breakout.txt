@@ -9,7 +9,6 @@ gymnasium[other]==0.29.1
 ale-py==0.8.1
 Shimmy==0.2.1
 pygame==2.6.1 
-nes-py==8.1.8
 
 
 pyyaml==6.0.1       

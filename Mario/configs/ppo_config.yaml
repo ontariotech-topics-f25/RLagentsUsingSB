@@ -6,7 +6,7 @@ levels:
 resize: 84
 num_stack: 4
 num_skip: 2
-render_mode: 'None'
+render_mode: None
 action_set: "RIGHT_ONLY"
 
 # === PPO Hyperparameters ===
