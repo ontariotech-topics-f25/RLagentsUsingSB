@@ -144,3 +144,75 @@ class MetricsLoggingCallback(BaseCallback):
                     timesteps=timesteps
                 )
         return True
+    
+import glob
+
+# ---------------------------------------------------------
+# MODEL AND ENVIRONMENT UTILITIES FOR EVALUATION
+# ---------------------------------------------------------
+
+def find_latest_model(model_dir, persona, algo):
+    """
+    Find the most recent model checkpoint that matches the algorithm name
+    and (optionally) the persona keyword.
+
+    Supports filenames like:
+        collector_ppo_checkpoint_500000_steps.zip
+        coin_greedy_ppo_seed67_20251023_110455.zip
+        speedrunner_dqn_checkpoint_300000_steps.pth
+
+    Works for both .zip (SB3) and .pth (PyTorch) models.
+    """
+    if not os.path.exists(model_dir):
+        return None
+
+    # Gather all potential model files
+    candidates = glob.glob(os.path.join(model_dir, "*.zip")) + glob.glob(os.path.join(model_dir, "*.pth"))
+    if not candidates:
+        return None
+
+    # Filter by algorithm
+    filtered = [f for f in candidates if algo.lower() in os.path.basename(f).lower()]
+    if not filtered:
+        print(f"[WARN] No models matched algorithm '{algo}' — using all files instead.")
+        filtered = candidates
+
+    # Prefer files that include persona keyword
+    persona_lower = persona.lower()
+    persona_matches = [f for f in filtered if persona_lower in os.path.basename(f).lower()]
+    final_list = persona_matches if persona_matches else filtered
+
+    # Return newest file by modification time
+    latest = max(final_list, key=os.path.getmtime)
+    return latest
+
+
+def unwrap_all(env):
+    """
+    Drill through Stable-Baselines3 VecEnv and Gym wrappers until reaching
+    the base NES-Py environment (SuperMarioBrosEnv).
+
+    Example:
+        VecMonitor → DummyVecEnv → SeedSafeEnv → LoggingWrapper → ... → SuperMarioBrosEnv
+    """
+    inner = env
+    visited = set()
+    while True:
+        if id(inner) in visited:
+            break
+        visited.add(id(inner))
+
+        # VecMonitor or DummyVecEnv
+        if hasattr(inner, "envs"):
+            inner = inner.envs[0]
+            continue
+        # Nested venv
+        if hasattr(inner, "venv"):
+            inner = inner.venv
+            continue
+        # Standard Gym wrappers
+        if hasattr(inner, "env"):
+            inner = inner.env
+            continue
+        break
+    return inner
