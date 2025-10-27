@@ -7,7 +7,8 @@ This repository contains our implementation of reinforcement learning agents tra
 ---
 
 ## Explanation Video
-[Embed your explanation video here]
+[![Explanation](https://img.youtube.com/vi/1F-17lLs6lU/0.jpg)](https://www.youtube.com/watch?v=1F-17lLs6lU)
+*Click the image above to watch a short demo!*
 
 ---
 ## RL Agents using Stable Baselines (Mario & Breakout)
@@ -104,8 +105,7 @@ Each agent demonstrates different learned behaviors based on their reward shapin
 - Collector: Balances exploration with item collection
 
 #### Breakout Agent Gameplay Demo
-[![Breakout Agent Gameplay](https://img.youtube.com/vi/1F-17lLs6lU/0.jpg)](https://www.youtube.com/watch?v=1F-17lLs6lU)
-*Click the image above to watch our trained Breakout agent in action!*
+
 
 ## Quickstart — Train & Evaluate
 
