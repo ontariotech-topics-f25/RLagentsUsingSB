@@ -64,30 +64,32 @@ Here are examples of our trained agents in action:
   <tr>
     <td align="center">
       🪙 <b>Coin Greedy (DQN)</b><br>
-      <img src="Mario/gifs/coin_greedy_dqn_eval-ezgif.com-video-to-gif-converter.gif" width="256">
+      <img src="https://raw.githubusercontent.com/ontariotech-topics-f25/RLagentsUsingSB/main/Mario/gifs/coin_greedy_dqn_eval-ezgif.com-video-to-gif-converter.gif" width="256">
     </td>
     <td align="center">
       🪙 <b>Coin Greedy (PPO)</b><br>
-      <img src="Mario/gifs/coin_greedy_ppo_eval-ezgif.com-video-to-gif-converter.gif" width="256">
+      <img src="https://raw.githubusercontent.com/ontariotech-topics-f25/RLagentsUsingSB/main/Mario/gifs/coin_greedy_ppo_eval-ezgif.com-video-to-gif-converter.gif" width="256">
     </td>
   </tr>
   <tr>
     <td align="center">
       ⚡ <b>Speedrunner (DQN)</b><br>
-      <img src="Mario/gifs/speedrunner_dqn_eval-ezgif.com-video-to-gif-converter.gif" width="256">
+      <img src="https://raw.githubusercontent.com/ontariotech-topics-f25/RLagentsUsingSB/main/Mario/gifs/speedrunner_dqn_eval-ezgif.com-video-to-gif-converter.gif" width="256">
     </td>
     <td align="center">
       ⚡ <b>Speedrunner (PPO)</b><br>
-      <img src="Mario/gifs/speedrunner_ppo_eval-ezgif.com-video-to-gif-converter.gif" width="256">
+      <img src="https://raw.githubusercontent.com/ontariotech-topics-f25/RLagentsUsingSB/main/Mario/gifs/speedrunner_ppo_eval-ezgif.com-video-to-gif-converter.gif" width="256">
     </td>
   </tr>
 </table>
+
+<br>
 
 <table>
   <tr>
     <td align="center">
       🧭 <b>Collector (PPO)</b><br>
-      <img src="Mario/gifs/collector_ppo_eval-ezgif.com-video-to-gif-converter.gif" width="256">
+      <img src="https://raw.githubusercontent.com/ontariotech-topics-f25/RLagentsUsingSB/main/Mario/gifs/collector_ppo_eval-ezgif.com-video-to-gif-converter.gif" width="256">
     </td>
   </tr>
 </table>
