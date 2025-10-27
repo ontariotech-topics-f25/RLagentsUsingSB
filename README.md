@@ -58,16 +58,33 @@ Note: Exact dependencies / versions for experiments may be specified in the envi
 Here are examples of our trained agents in action:
 
 ### Super Mario Bros Agents
+<div align="center">
 
-#### Speedrunner Agent
-This agent is trained to complete levels as quickly as possible:
-- PPO Implementation: [Watch Video](Mario/videos/speedrunner_ppo_eval.mp4)
-- DQN Implementation: [Watch Video](Mario/videos/speedrunner_dqn_eval.mp4)
+<table>
+  <tr>
+    <td align="center">
+      🪙 <b>Coin Greedy (DQN)</b><br>
+      <img src="Mario/gifs/coin_greedy_dqn_eval-ezgif.com-video-to-gif-converter.gif" width="256">
+    </td>
+    <td align="center">
+      🪙 <b>Coin Greedy (PPO)</b><br>
+      <img src="Mario/gifs/coin_greedy_ppo_eval-ezgif.com-video-to-gif-converter.gif" width="256">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      ⚡ <b>Speedrunner (DQN)</b><br>
+      <img src="Mario/gifs/speedrunner_dqn_eval-ezgif.com-video-to-gif-converter.gif" width="256">
+    </td>
+    <td align="center">
+      ⚡ <b>Speedrunner (PPO)</b><br>
+      <img src="Mario/gifs/speedrunner_ppo_eval-ezgif.com-video-to-gif-converter.gif" width="256">
+    </td>
+  </tr>
+</table>
 
-#### Coin Collector Agent
-This agent prioritizes collecting coins and power-ups:
-- PPO Implementation: [Watch Video](Mario/videos/coin_greedy_ppo_eval.mp4)
-- DQN Implementation: [Watch Video](Mario/videos/coin_greedy_dqn_eval.mp4)
+</div>
+
 
 #### Collector Agent (Exploration Focus)
 This agent tries to explore and collect items:
