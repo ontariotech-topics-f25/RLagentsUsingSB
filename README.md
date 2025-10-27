@@ -103,6 +103,10 @@ Each agent demonstrates different learned behaviors based on their reward shapin
 - Coin Collector: Prioritizes coins and power-ups, sometimes backtracking to collect them
 - Collector: Balances exploration with item collection
 
+#### Breakout Agent Gameplay Demo
+[![Breakout Agent Gameplay](https://img.youtube.com/vi/1F-17lLs6lU/0.jpg)](https://www.youtube.com/watch?v=1F-17lLs6lU)
+*Click the image above to watch our trained Breakout agent in action!*
+
 ## Quickstart — Train & Evaluate
 
 There are a few entry points depending on which environment you want to run.
@@ -159,11 +163,30 @@ Each config typically controls: algorithm, learning rate, seed, training timeste
 
 ### Breakout Performance Analysis
 
-#### Agent Gameplay Demo
-[![Breakout Agent Gameplay](https://img.youtube.com/vi/1F-17lLs6lU/0.jpg)](https://www.youtube.com/watch?v=1F-17lLs6lU)
-*Click the image above to watch our trained Breakout agent in action!*
 
-#### Training Progress Visualization
+
+#### Breakout Training Progress Visualization
+
+
+
+#### PPO Agent Performance Analysis
+- **Learning Progression**: The agent shows steady improvement over approximately 25,000 episodes
+- **Starting Performance**: Near-zero rewards in early episodes
+- **Final Performance**: Achieves stable average rewards of 10-15 points per episode
+- **Variance**: High episode-to-episode variance throughout training, but stable moving average
+- **Peak Performance**: Individual episodes can reach rewards of 25-30 points
+
+#### Training Characteristics
+- **High Variance**: Raw rewards show significant episode-to-episode fluctuation
+- **Stable Learning**: 300-episode rolling averages show consistent upward trend
+- **Long-term Stability**: Performance plateaus after initial learning phase
+- **Exploration Pattern**: Maintains exploration while improving average performance
+
+The visualizations were generated using the training logs in `Breakout/data/Breakout/logs/` and can be recreated using the Jupyter notebook at `Breakout/notebooks/visualize.ipynb`.
+
+
+
+#### Mario Training Progress Visualization
 
 ![Reward per Episode](Mario/data/plots/step_reward_smooth.png)
 *Single training run showing raw rewards (gray) and 300-episode rolling average (blue)*
@@ -200,21 +223,6 @@ Each config typically controls: algorithm, learning rate, seed, training timeste
 
 </div>
 
-
-#### PPO Agent Performance Analysis
-- **Learning Progression**: The agent shows steady improvement over approximately 25,000 episodes
-- **Starting Performance**: Near-zero rewards in early episodes
-- **Final Performance**: Achieves stable average rewards of 10-15 points per episode
-- **Variance**: High episode-to-episode variance throughout training, but stable moving average
-- **Peak Performance**: Individual episodes can reach rewards of 25-30 points
-
-#### Training Characteristics
-- **High Variance**: Raw rewards show significant episode-to-episode fluctuation
-- **Stable Learning**: 300-episode rolling averages show consistent upward trend
-- **Long-term Stability**: Performance plateaus after initial learning phase
-- **Exploration Pattern**: Maintains exploration while improving average performance
-
-The visualizations were generated using the training logs in `Breakout/data/Breakout/logs/` and can be recreated using the Jupyter notebook at `Breakout/notebooks/visualize.ipynb`.
 
 ## Development & Contributing
 
