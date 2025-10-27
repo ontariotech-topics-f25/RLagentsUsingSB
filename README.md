@@ -104,7 +104,6 @@ Each agent demonstrates different learned behaviors based on their reward shapin
 - Coin Collector: Prioritizes coins and power-ups, sometimes backtracking to collect them
 - Collector: Balances exploration with item collection
 
-#### Breakout Agent Gameplay Demo
 
 
 ## Quickstart — Train & Evaluate
