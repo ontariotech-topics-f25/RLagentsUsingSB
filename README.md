@@ -55,7 +55,7 @@ Note: Exact dependencies / versions for experiments may be specified in the envi
 
 ## Agent Demonstrations
 
-Here are examples of our trained agents in action:
+Here are examples of our agents in action:
 
 ### Super Mario Bros Agents
 <div align="center">
