@@ -83,12 +83,18 @@ Here are examples of our trained agents in action:
   </tr>
 </table>
 
+<table>
+  <tr>
+    <td align="center">
+      🧭 <b>Collector (PPO)</b><br>
+      <img src="Mario/gifs/collector_ppo_eval-ezgif.com-video-to-gif-converter.gif" width="256">
+    </td>
+  </tr>
+</table>
+
 </div>
 
 
-#### Collector Agent (Exploration Focus)
-This agent tries to explore and collect items:
-- PPO Implementation: [Watch Video](Mario/videos/collector_ppo_eval.mp4)
 
 Each agent demonstrates different learned behaviors based on their reward shaping:
 - Speedrunner: Focuses on forward progress and quick completion
