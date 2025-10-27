@@ -171,6 +171,36 @@ Each config typically controls: algorithm, learning rate, seed, training timeste
 ![PPO Learning Progress](Mario/data/plots/episodic_total_reward.png)
 *Combined PPO training runs showing episode rewards (light blue) and 20-episode average (red)*
 
+## 📊 Training Metrics (Step-based)
+
+<div align="center">
+
+<table>
+  <tr>
+    <td align="center">
+      🪙 <b>Coin Greedy (DQN)</b><br>
+      <img src="https://raw.githubusercontent.com/ontariotech-topics-f25/RLagentsUsingSB/main/Mario/data/plots/coin_greedy_dqn_20251021_070756_922877_log_step_metrics.png" width="512">
+    </td>
+    <td align="center">
+      🪙 <b>Coin Greedy (PPO)</b><br>
+      <img src="https://raw.githubusercontent.com/ontariotech-topics-f25/RLagentsUsingSB/main/Mario/data/plots/coin_greedy_ppo_20251021_052203_843998_log_step_metrics.png" width="512">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      ⚡ <b>Speedrunner (DQN)</b><br>
+      <img src="https://raw.githubusercontent.com/ontariotech-topics-f25/RLagentsUsingSB/main/Mario/data/plots/speedrunner_dqn_20251021_061306_782737_log_step_metrics.png" width="512">
+    </td>
+    <td align="center">
+      ⚡ <b>Speedrunner (PPO)</b><br>
+      <img src="https://raw.githubusercontent.com/ontariotech-topics-f25/RLagentsUsingSB/main/Mario/data/plots/speedrunner_ppo_20251021_043008_079440_log_step_metrics.png" width="512">
+    </td>
+  </tr>
+</table>
+
+</div>
+
+
 #### PPO Agent Performance Analysis
 - **Learning Progression**: The agent shows steady improvement over approximately 25,000 episodes
 - **Starting Performance**: Near-zero rewards in early episodes
