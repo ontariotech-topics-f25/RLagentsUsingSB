@@ -162,12 +162,14 @@ Each config typically controls: algorithm, learning rate, seed, training timeste
 - Breakout: experiments compare PPO vs DQN variants in Atari-style settings.
 
 ### Breakout Performance Analysis
-
-
-
 #### Breakout Training Progress Visualization
 
 
+##### DQN Reward Curve
+![DQN Rewards](Breakout/notebooks/breakout_DQN_rewards.png)
+
+##### PPO Reward Curve
+![PPO Rewards](Breakout/notebooks/breakout_PPO_rewards.png)
 
 #### PPO Agent Performance Analysis
 - **Learning Progression**: The agent shows steady improvement over approximately 25,000 episodes
