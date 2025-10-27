@@ -93,7 +93,7 @@ python src/train.py --config Breakout/configs/BreskPoint/BreakPoint.yaml
 
 ```bash
 # From repo root
-python Mario/src/train.py --config Mario/configs/dqn_config.yaml
+python Mario/src/train.py --config Mario/configs/dqn_config.yaml --persona speedrunner
 ```
 
 3) Run a bundle of experiments (if available)
