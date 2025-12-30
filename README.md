@@ -4,11 +4,7 @@ Hey, thanks for checking out our project!
 
 This repository contains our implementation of reinforcement learning agents trained to play **Super Mario Bros** and **Breakout**.  
 
----
 
-## Explanation Video
-[![Explanation](https://img.youtube.com/vi/1F-17lLs6lU/0.jpg)](https://www.youtube.com/watch?v=1F-17lLs6lU)
-*Click the image above to watch a short demo!*
 
 ---
 ## RL Agents using Stable Baselines (Mario & Breakout)
